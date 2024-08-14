@@ -5,6 +5,7 @@ import static es.us.isa.restest.configuration.TestConfigurationVisitor.searchTes
 import es.us.isa.restest.configuration.pojos.Operation;
 import es.us.isa.restest.configuration.pojos.TestParameter;
 import es.us.isa.restest.testcases.TestCase;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +18,16 @@ import java.util.Map;
 public class IDLAdapter {
 
   public static void idl2restestTestCase(
-      TestCase tc, Map<String, String> request, Operation testOperation) {
-    for (Map.Entry<String, String> parameter : request.entrySet()) {
-      TestParameter testParameter =
-          searchTestParameter(parameter.getKey(), testOperation.getTestParameters());
-      tc.addParameter(testParameter, parameter.getValue());
+      TestCase tc, Map<Parameter, String> request, Operation testOperation) {
+    for (Map.Entry<Parameter, String> parameter : request.entrySet()) {
+      if (testOperation.getTestParameters().isEmpty()) {
+        tc.addParameter(
+            parameter.getKey().getIn(), parameter.getKey().getName(), parameter.getValue());
+      } else {
+        TestParameter testParameter =
+            searchTestParameter(parameter.getKey().getName(), testOperation.getTestParameters());
+        tc.addParameter(testParameter, parameter.getValue());
+      }
     }
   }
 
