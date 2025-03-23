@@ -216,7 +216,7 @@ public class ConstraintBasedTestCaseGenerator extends AbstractTestCaseGenerator 
       try {
         idl2restestTestCase(
             test,
-            idlReasoner.getRandomValidRequest(),
+            idlReasoner.getRandomValidRequestWithParameter(),
             testOperation); // Generate valid test case with IDLReasoner
       } catch (IDLException e) {
         logger.warn(
@@ -246,7 +246,7 @@ public class ConstraintBasedTestCaseGenerator extends AbstractTestCaseGenerator 
       try {
         idl2restestTestCase(
             test,
-            idlReasoner.getRandomInvalidRequest(),
+            idlReasoner.getRandomInvalidRequestWithParameter(),
             testOperation); // Generate invalid test case with IDLReasoner
       } catch (IDLException e) {
         logger.warn(
@@ -293,7 +293,7 @@ public class ConstraintBasedTestCaseGenerator extends AbstractTestCaseGenerator 
       }
     }
 
-    return inputData;
+    return inputData.isEmpty() ? null : inputData;
   }
 
   // Returns true if there are more test cases to be generated

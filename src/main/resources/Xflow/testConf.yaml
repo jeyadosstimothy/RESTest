@@ -1,0 +1,13 @@
+---
+auth:
+  required: true
+  headerParams:
+    Authorization: Bearer sk_test_1718977534_cYbJbD9zX1ZZo5EnmMeU5U21rMyG33dM
+    XFlow-Account: account_F0A_1718958932447_rED85_000
+testConfiguration:
+  operations:
+    - testPath: "/v1/accounts"
+      operationId: CreateAccount
+      method: post
+      testParameters: []
+      expectedResponse: 200

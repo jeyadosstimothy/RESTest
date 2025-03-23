@@ -523,7 +523,9 @@ public abstract class AbstractTestCaseGenerator {
       if (operation.getRequestBody().getContent().containsKey("application/x-www-form-urlencoded"))
         test.setInputFormat("application/x-www-form-urlencoded");
       else if (operation.getRequestBody().getContent().keySet().stream()
-          .noneMatch(x -> x.matches(MEDIA_TYPE_APPLICATION_JSON_REGEX)))
+          .anyMatch(x -> x.matches(MEDIA_TYPE_APPLICATION_JSON_REGEX)))
+        test.setInputFormat("application/json");
+      else
         test.setInputFormat(
             operation.getRequestBody().getContent().keySet().stream().findFirst().get());
     }

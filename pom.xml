@@ -318,18 +318,11 @@
 
     <!-- AUTOMATED ANALYSIS OF INTER-PARAMETER DEPENDENCIES -->
 
-    <!-- IDL dependency -->
-    <dependency>
-      <groupId>es.us.isa</groupId>
-      <artifactId>idl-choco</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-
     <!-- IDLreasoner dependency -->
     <dependency>
       <groupId>es.us.isa</groupId>
-      <artifactId>idl-reasoner</artifactId>
-      <version>1.0.0</version>
+      <artifactId>idlreasoner</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
