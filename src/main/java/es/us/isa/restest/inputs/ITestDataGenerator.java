@@ -1,6 +1,7 @@
 package es.us.isa.restest.inputs;
 
 public interface ITestDataGenerator {
-	Object nextValue();
-	String nextValueAsString();
+  Object nextValue();
+
+  String nextValueAsString();
 }

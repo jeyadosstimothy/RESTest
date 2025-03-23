@@ -2,79 +2,77 @@ package es.us.isa.restest.generators;
 
 import static es.us.isa.restest.specification.OpenAPISpecificationVisitor.hasDependencies;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import es.us.isa.restest.configuration.pojos.Operation;
 import es.us.isa.restest.configuration.pojos.TestConfigurationObject;
 import es.us.isa.restest.specification.OpenAPISpecification;
 import es.us.isa.restest.testcases.TestCase;
 import es.us.isa.restest.util.RESTestException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
- *  This class implements a simple random test case generator
- * @author Sergio Segura
+ * This class implements a simple random test case generator
  *
+ * @author Sergio Segura
  */
 public class RandomTestCaseGenerator extends AbstractTestCaseGenerator {
-	
-	public static final String INDIVIDUAL_PARAMETER_CONSTRAINT = "individual_parameter_constraint";
 
-	public RandomTestCaseGenerator(OpenAPISpecification spec, TestConfigurationObject conf, int nTests) {
-		super(spec, conf, nTests);
-	}
+  public static final String INDIVIDUAL_PARAMETER_CONSTRAINT = "individual_parameter_constraint";
 
-	@Override
-	protected Collection<TestCase> generateOperationTestCases(Operation testOperation) throws RESTestException {
+  public RandomTestCaseGenerator(
+      OpenAPISpecification spec, TestConfigurationObject conf, int nTests) {
+    super(spec, conf, nTests);
+  }
 
-		List<TestCase> testCases = new ArrayList<>();
+  @Override
+  protected Collection<TestCase> generateOperationTestCases(Operation testOperation)
+      throws RESTestException {
 
-		// Reset counters for the current operation
-		resetOperation();
+    List<TestCase> testCases = new ArrayList<>();
 
-		boolean fulfillsDependencies = !hasDependencies(testOperation.getOpenApiOperation());
-		
-		while (hasNext()) {
+    // Reset counters for the current operation
+    resetOperation();
 
-			// Create test case with specific parameters and values
-			//Timer.startCounting(TEST_CASE_GENERATION);
-			TestCase test = generateNextTestCase(testOperation);
-			test.setFulfillsDependencies(fulfillsDependencies);
-			//Timer.stopCounting(TEST_CASE_GENERATION);
+    boolean fulfillsDependencies = !hasDependencies(testOperation.getOpenApiOperation());
 
-			// Set authentication data (if any)
-			authenticateTestCase(test);
+    while (hasNext()) {
 
-			// Add test case to the collection
-			testCases.add(test);
+      // Create test case with specific parameters and values
+      // Timer.startCounting(TEST_CASE_GENERATION);
+      TestCase test = generateNextTestCase(testOperation);
+      test.setFulfillsDependencies(fulfillsDependencies);
+      // Timer.stopCounting(TEST_CASE_GENERATION);
 
-			// Update indexes
-			updateIndexes(test);
+      // Set authentication data (if any)
+      authenticateTestCase(test);
 
-		}
-		
-		return testCases;
-	}
-	
+      // Add test case to the collection
+      testCases.add(test);
 
-	// Generate the next test case
-	public TestCase generateNextTestCase(Operation testOperation) throws RESTestException {
+      // Update indexes
+      updateIndexes(test);
+    }
 
-		TestCase test = generateRandomValidTestCase(testOperation);
+    return testCases;
+  }
 
-		// If more faulty test cases need to be generated, try generating one
-		if (nFaulty < (int) (faultyRatio * numberOfTests))
-			makeTestCaseFaultyDueToIndividualConstraints(test, testOperation);
+  // Generate the next test case
+  public TestCase generateNextTestCase(Operation testOperation) throws RESTestException {
 
-		checkTestCaseValidity(test);
+    TestCase test = generateRandomValidTestCase(testOperation);
 
-		return test;
-	}
+    // If more faulty test cases need to be generated, try generating one
+    if (nFaulty < (int) (faultyRatio * numberOfTests))
+      makeTestCaseFaultyDueToIndividualConstraints(test, testOperation);
 
-	// Returns true if there are more test cases to be generated
-	protected boolean hasNext() {
-		return nTests < numberOfTests;
-	}
-	
+    checkTestCaseValidity(test);
+
+    return test;
+  }
+
+  // Returns true if there are more test cases to be generated
+  protected boolean hasNext() {
+    return nTests < numberOfTests;
+  }
 }

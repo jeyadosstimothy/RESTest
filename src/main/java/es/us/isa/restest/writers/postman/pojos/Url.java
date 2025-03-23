@@ -1,8 +1,6 @@
-
 package es.us.isa.restest.writers.postman.pojos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,82 +8,84 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Url {
 
-    private String raw;
-    private String protocol;
-    private List<String> host = null;
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<String> path = null;
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<Query> query = null;
+  private String raw;
+  private String protocol;
+  private List<String> host = null;
 
-    public Url() {
-        this.host = new ArrayList<>();
-        this.path = new ArrayList<>();
-        this.query = new ArrayList<>();
-    }
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private List<String> path = null;
 
-    public Url(String raw, String protocol, List<String> host, List<String> path, List<Query> query) {
-        this.raw = raw;
-        this.protocol = protocol;
-        this.host = host;
-        this.path = path;
-        this.query = query;
-    }
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private List<Query> query = null;
 
-    public String getRaw() {
-        return raw;
-    }
+  public Url() {
+    this.host = new ArrayList<>();
+    this.path = new ArrayList<>();
+    this.query = new ArrayList<>();
+  }
 
-    public void setRaw(String raw) {
-        this.raw = raw;
-    }
+  public Url(String raw, String protocol, List<String> host, List<String> path, List<Query> query) {
+    this.raw = raw;
+    this.protocol = protocol;
+    this.host = host;
+    this.path = path;
+    this.query = query;
+  }
 
-    public String getProtocol() {
-        return protocol;
-    }
+  public String getRaw() {
+    return raw;
+  }
 
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
+  public void setRaw(String raw) {
+    this.raw = raw;
+  }
 
-    public List<String> getHost() {
-        return host;
-    }
+  public String getProtocol() {
+    return protocol;
+  }
 
-    public void setHost(List<String> host) {
-        this.host = host;
-    }
+  public void setProtocol(String protocol) {
+    this.protocol = protocol;
+  }
 
-    public List<String> getPath() {
-        return path;
-    }
+  public List<String> getHost() {
+    return host;
+  }
 
-    public void setPath(List<String> path) {
-        this.path = path;
-    }
+  public void setHost(List<String> host) {
+    this.host = host;
+  }
 
-    public List<Query> getQuery() {
-        return query;
-    }
+  public List<String> getPath() {
+    return path;
+  }
 
-    public void setQuery(List<Query> query) {
-        this.query = query;
-    }
+  public void setPath(List<String> path) {
+    this.path = path;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Url url = (Url) o;
-        return Objects.equals(raw, url.raw) &&
-                Objects.equals(protocol, url.protocol) &&
-                Objects.equals(host, url.host) &&
-                Objects.equals(path, url.path) &&
-                Objects.equals(query, url.query);
-    }
+  public List<Query> getQuery() {
+    return query;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(raw, protocol, host, path, query);
-    }
+  public void setQuery(List<Query> query) {
+    this.query = query;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Url url = (Url) o;
+    return Objects.equals(raw, url.raw)
+        && Objects.equals(protocol, url.protocol)
+        && Objects.equals(host, url.host)
+        && Objects.equals(path, url.path)
+        && Objects.equals(query, url.query);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(raw, protocol, host, path, query);
+  }
 }
